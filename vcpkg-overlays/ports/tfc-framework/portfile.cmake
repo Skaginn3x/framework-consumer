@@ -1,18 +1,21 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO skaginn3x/framework
-    REF "4fdf1daf4a62a3b0332d870928c8581370059dfd"
-    SHA512 0198f03616864b3085c8a33996df8f81b8c47e66cc7271601377abf8191fdadb50f33e0146e19582c60dff033b2e30b504e4aa46a455c599e49cf8fa575a04a7
+    REF "268d08e9403eaad8f373ece871a3810c45352997"
+    SHA512 5d03f9b55c258d363671df78fc31c8c960bee3b640ce172b36106a61e81d6624841ec45de63ed5af124b9c1c7821a909438ab1fad67b6dce60f95f75c5fa2733
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
       -DBUILD_EXES=OFF
-#      -DBUILD_TESTING=OFF
-#      -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
+      -DBUILD_TESTING=OFF
+      -DBUILD_DOCS=OFF
 )
 
 vcpkg_cmake_install()
+
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
