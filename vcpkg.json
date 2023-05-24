@@ -1,0 +1,7 @@
+{
+  "name": "framework-consumer",
+  "version": "0.0.1",
+  "dependencies": [
+    "tfc-framework"
+  ]
+}
