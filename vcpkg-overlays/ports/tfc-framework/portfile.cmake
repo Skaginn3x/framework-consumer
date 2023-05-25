@@ -1,19 +1,32 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO skaginn3x/framework
-    REF "ab01235fa7ff5c8a4d829ee61a07d17e380e1cbc"
-    SHA512 6ef3bbd56e305d281bf25321fc79a2d5169086649c10e5231114a6a9545380963ad3525b73887325386599f625dd9bae5cce031e16ffccf5d178b9993453956a
+    REF "a26f2b7cfbf39e64cb0529ad8d4101fa21ff5674"
+    SHA512 77e3de3a5905e383be428595438f0bb4538da4bc42c44c00dc83f2e4de2c32bb4599a8e67e530e04992920177c5f99887e95b4ccfe5248fa1b403064e844e75c
 )
+
+if ("build-exes" IN_LIST FEATURES)
+  set(BUILD_EXES ON)
+else()
+  set(BUILD_EXES OFF)
+endif()
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-      -DBUILD_EXES=ON
+      -DBUILD_EXES=${BUILD_EXES}
       -DBUILD_TESTING=OFF
       -DBUILD_DOCS=OFF
+      -DCMAKE_C_FLAGS="-fvisibility=default ${CMAKE_C_FLAGS}"
+      -DCMAKE_CXX_FLAGS="-fvisibility=default ${CMAKE_CXX_FLAGS}"
 )
 
-vcpkg_cmake_install(ADD_BIN_TO_PATH)
+if (${BUILD_EXES})
+  vcpkg_cmake_install(ADD_BIN_TO_PATH)
+else ()
+  vcpkg_cmake_install()
+endif ()
+
 vcpkg_cmake_config_fixup(PACKAGE_NAME tfc)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")

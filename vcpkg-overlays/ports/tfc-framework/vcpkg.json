@@ -29,5 +29,10 @@
     },
     "sdbusplus",
     "date"
-  ]
+  ],
+  "features": {
+    "build-exes": {
+      "description": "Build binaries and install them to sysroot"
+    }
+  }
 }
