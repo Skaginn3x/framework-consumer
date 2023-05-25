@@ -8,12 +8,12 @@ vcpkg_from_github(
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-      -DBUILD_EXES=OFF
+      -DBUILD_EXES=ON
       -DBUILD_TESTING=OFF
       -DBUILD_DOCS=OFF
 )
 
-vcpkg_cmake_install()
+vcpkg_cmake_install(ADD_BIN_TO_PATH)
 vcpkg_cmake_config_fixup(PACKAGE_NAME tfc)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
