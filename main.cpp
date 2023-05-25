@@ -20,7 +20,9 @@ struct storage {
 class App {
 public:
   App(asio::io_context &ctx) :
-          bool_slot_{ctx, "slot_name", []([[maybe_unused]] bool new_state) {}},
+          bool_slot_{ctx, "slot_name", []([[maybe_unused]] bool new_state) {
+              fmt::print("{}\n", new_state);
+          }},
           json_signal_{ctx, "signal_name"},
           config_{ctx, "app"},
           logger_{"app"} {}
@@ -42,6 +44,8 @@ int main(int argc, char **argv) {
   [[maybe_unused]] auto const app{ App(ctx) };
 
   asio::co_spawn(ctx, tfc::base::exit_signals(ctx), asio::detached);
+
+  ctx.run();
 
   return EXIT_SUCCESS;
 }
